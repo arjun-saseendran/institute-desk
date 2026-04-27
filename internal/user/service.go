@@ -4,6 +4,7 @@ import "gorm.io/gorm"
 
 type UserService interface {
 	Create(userData *InputUser) (*User, error)
+	List() ([]User, error)
 }
 
 type userService struct{ db *gorm.DB }
@@ -19,4 +20,13 @@ func (us *userService) Create(userData *InputUser) (*User, error) {
 		return nil, result.Error
 	}
 	return newUser, nil
+}
+
+func (us *userService) List() ([]User, error) {
+	var users []User
+	result := us.db.Find(&users)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return users, nil
 }
