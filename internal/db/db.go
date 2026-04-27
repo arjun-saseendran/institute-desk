@@ -2,14 +2,16 @@ package db
 
 import (
 	"log"
-	"os/user"
+
+	"github.com/arjun-saseendran/institute/internal/user"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 func ConnectDB() (*gorm.DB, error) {
 
-	dsn := "host=localhost user=postgres password=postgres dbname=swimming-pool port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+	dsn := "host=localhost user=postgres password=postgres dbname=institute port=5432 sslmode=disable TimeZone=Asia/Shanghai"
 
 	db, err := gorm.Open(postgres.New(postgres.Config{
 		DSN:                  dsn,
