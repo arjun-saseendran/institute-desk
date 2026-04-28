@@ -7,6 +7,7 @@ type UserService interface {
 	GetUsers() ([]User, error)
 	GetUser(id string) (*User, error)
 	UpdateUser(id string, userData *InputUpdateUser) (*User, error)
+	DeleteUser(id string) error
 }
 
 type userService struct{ db *gorm.DB }
@@ -51,4 +52,15 @@ func (us *userService) UpdateUser(id string, userData *InputUpdateUser) (*User, 
 	}
 	us.db.Model(&updateUser).Updates(User{Name: userData.Name, Address: userData.Address, Mobile: userData.Mobile})
 	return updateUser, nil
+}
+
+func (us *userService) DeleteUser(id string) error {
+	deleteUser := NewUser()
+	result := us.db.First(deleteUser, id)
+	if result.Error != nil {
+		return result.Error
+	}
+	us.db.Delete(deleteUser)
+	return nil
+
 }

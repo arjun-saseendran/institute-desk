@@ -23,6 +23,7 @@ func (handler *UserHandler) RegisterEndPoints(r *gin.Engine) {
 	userGroup.GET("", handler.GetUsers)
 	userGroup.GET("/:id", handler.GetUser)
 	userGroup.POST("/:id", handler.UpdateUser)
+	userGroup.DELETE("/:id", handler.DeleteUser)
 
 }
 
@@ -83,4 +84,18 @@ func (handler *UserHandler) UpdateUser(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, gin.H{"msg": "user data updated successfully", "data": updatedUserData})
+}
+
+func (handler *UserHandler) DeleteUser(ctx *gin.Context) {
+	id, ok := ctx.Params.Get("id")
+	if !ok {
+		ctx.JSON(http.StatusBadRequest, gin.H{"msg": "invalid user id"})
+		return
+	}
+	err := handler.userService.DeleteUser(id)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"err": "failed to delete user"})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{"msg": "user deleted successfully"})
 }
