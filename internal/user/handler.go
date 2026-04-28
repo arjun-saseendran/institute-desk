@@ -22,11 +22,12 @@ func (handler *UserHandler) RegisterEndPoints(r *gin.Engine) {
 	userGroup.POST("", handler.CreateUser)
 	userGroup.GET("", handler.GetUsers)
 	userGroup.GET("/:id", handler.GetUser)
+	userGroup.POST("/:id", handler.UpdateUser)
 
 }
 
 func (handler *UserHandler) CreateUser(ctx *gin.Context) {
-	userData := NewInputUser()
+	userData := NewInputCreateUser()
 	err := ctx.BindJSON(&userData)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"err": "failed to bind user data"})
@@ -61,4 +62,25 @@ func (handler *UserHandler) GetUser(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, gin.H{"msg": "user data fetched successfully", "data": singleUser})
+}
+
+func (handler *UserHandler) UpdateUser(ctx *gin.Context) {
+	id, ok := ctx.Params.Get("id")
+	if !ok {
+		ctx.JSON(http.StatusBadRequest, gin.H{"err": "invalid user id"})
+		return
+	}
+	userData := NewInputUpdateUser()
+
+	err := ctx.BindJSON(&userData)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"err": "failed to bind user data"})
+		return
+	}
+	updatedUserData, err := handler.userService.UpdateUser(id, userData)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"err": "failed to update user data"})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{"msg": "user data updated successfully", "data": updatedUserData})
 }
