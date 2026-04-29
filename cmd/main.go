@@ -1,0 +1,30 @@
+package main
+
+import (
+	"log"
+
+	"github.com/arjun-saseendran/institute-desk/internal/db"
+	"github.com/arjun-saseendran/institute-desk/internal/session"
+	"github.com/arjun-saseendran/institute-desk/internal/user"
+	"github.com/gin-gonic/gin"
+)
+
+func main() {
+	dbConnection, err := db.ConnectDB()
+	if err != nil {
+		log.Fatalf("failed to connect database: %v", err)
+	}
+
+	router := gin.Default()
+
+	userService := user.NewUserService(dbConnection)
+	userHandler := user.NewUserHandler(userService)
+	userHandler.RegisterEndPoints(router)
+
+	sessionService := session.NewSessionService(dbConnection)
+	sessionHandler := session.NewSessionHandler(sessionService)
+	sessionHandler.RegisterEndPoints(router)
+
+	router.Run(":3000")
+
+}

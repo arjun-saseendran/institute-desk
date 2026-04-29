@@ -3,7 +3,7 @@ package db
 import (
 	"log"
 
-	"github.com/arjun-saseendran/institute/internal/user"
+	"github.com/arjun-saseendran/institute-desk/internal/user"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

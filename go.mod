@@ -1,4 +1,4 @@
-module github.com/arjun-saseendran/institute
+module github.com/arjun-saseendran/institute-desk
 
 go 1.26.2
 

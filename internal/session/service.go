@@ -14,7 +14,7 @@ type sessionService struct {
 	db *gorm.DB
 }
 
-func NewUserService(db *gorm.DB) SessionService {
+func NewSessionService(db *gorm.DB) SessionService {
 	return &sessionService{db: db}
 }
 
