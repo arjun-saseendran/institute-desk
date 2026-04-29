@@ -3,7 +3,7 @@ package user
 import "gorm.io/gorm"
 
 type UserService interface {
-	Create(userData *InputCreateUser) (*User, error)
+	CreateUser(userData *InputCreateUser) (*User, error)
 	GetUsers() ([]User, error)
 	GetUser(id string) (*User, error)
 	UpdateUser(id string, userData *InputUpdateUser) (*User, error)
@@ -16,7 +16,7 @@ func NewUserService(db *gorm.DB) UserService {
 	return &userService{db: db}
 }
 
-func (us *userService) Create(userData *InputCreateUser) (*User, error) {
+func (us *userService) CreateUser(userData *InputCreateUser) (*User, error) {
 	newUser := &User{Name: userData.Name, Address: userData.Address, Mobile: userData.Mobile}
 	result := us.db.Create(newUser)
 	if result.Error != nil {

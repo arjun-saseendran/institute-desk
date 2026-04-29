@@ -34,7 +34,7 @@ func (handler *UserHandler) CreateUser(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"err": "failed to bind user data"})
 		return
 	}
-	newUser, err := handler.userService.Create(userData)
+	newUser, err := handler.userService.CreateUser(userData)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"err": "failed to create new user"})
 		return
