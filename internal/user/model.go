@@ -14,9 +14,9 @@ type User struct {
 	Name      string    `json:"name"`
 	Address   string    `json:"address"`
 	Mobile    string    `gorm:"uniqueIndex" json:"mobile"`
-	Role      UserType  `gorm:"default:'STUDENT'" json:"user_type"`
-	CreatedAt time.Time `gorm:"autoCreatTime" json:"created_at"`
-	UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updated_at"`
+	Role      UserType  `gorm:"default:'STUDENT'" json:"userType"`
+	CreatedAt time.Time `gorm:"autoCreatTime" json:"createdAt"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updatedAt"`
 }
 
 func NewUser() *User {
