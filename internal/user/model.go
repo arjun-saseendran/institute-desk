@@ -15,7 +15,7 @@ type User struct {
 	Address   string    `json:"address"`
 	Mobile    string    `gorm:"uniqueIndex" json:"mobile"`
 	Role      UserType  `gorm:"default:'STUDENT'" json:"userType"`
-	CreatedAt time.Time `gorm:"autoCreatTime" json:"createdAt"`
+	CreatedAt time.Time `gorm:"autoCreateTime" json:"createdAt"`
 	UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updatedAt"`
 }
 
