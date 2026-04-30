@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"github.com/arjun-saseendran/institute-desk/internal/class"
 	"github.com/arjun-saseendran/institute-desk/internal/db"
 	"github.com/arjun-saseendran/institute-desk/internal/session"
 	"github.com/arjun-saseendran/institute-desk/internal/user"
@@ -24,6 +25,10 @@ func main() {
 	sessionService := session.NewSessionService(dbConnection)
 	sessionHandler := session.NewSessionHandler(sessionService)
 	sessionHandler.RegisterEndPoints(router)
+
+	classService := class.NewClassService(dbConnection)
+	classHandler := class.NewClassHandler(classService)
+	classHandler.RegisterEndPoints(router)
 
 	router.Run(":3000")
 
