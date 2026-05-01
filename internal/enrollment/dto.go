@@ -5,3 +5,7 @@ type InputCreateEnrollment struct {
 	ClassId   uint `json:"classId" binding:"required"`
 	SessionId uint `json:"sessionId" binding:"required"`
 }
+
+func NewInputCreateEnrollment() *InputCreateEnrollment {
+	return &InputCreateEnrollment{}
+}
