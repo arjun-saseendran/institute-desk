@@ -5,6 +5,7 @@ import (
 
 	"github.com/arjun-saseendran/institute-desk/internal/class"
 	"github.com/arjun-saseendran/institute-desk/internal/db"
+	"github.com/arjun-saseendran/institute-desk/internal/enrollment"
 	"github.com/arjun-saseendran/institute-desk/internal/session"
 	"github.com/arjun-saseendran/institute-desk/internal/user"
 	"github.com/gin-gonic/gin"
@@ -29,6 +30,10 @@ func main() {
 	classService := class.NewClassService(dbConnection)
 	classHandler := class.NewClassHandler(classService)
 	classHandler.RegisterEndPoints(router)
+
+	enrollmentService := enrollment.NewEnrollmentService(dbConnection)
+	enrollmentHandler := enrollment.NewEnrollmetHandler(enrollmentService)
+	enrollmentHandler.RegisterEndPoints(router)
 
 	router.Run(":3000")
 
